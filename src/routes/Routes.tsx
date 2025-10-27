@@ -1,6 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from '../pages/auth/Login';
 import { useAuth } from '../context/AuthContext';
+import { Layout } from '../components';
+import { Dashboard } from '../pages/dashboard/Dashboard';
+import { QueryHistory } from '../pages/history/QueryHistory';
+import { ConnectedDatabases } from '../pages/databases/ConnectedDatabases';
+import { ConnectDatabase } from '../pages/databases/ConnectDatabase';
+import { Settings } from '../pages/settings/Settings';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
@@ -37,6 +43,15 @@ function AppRoutes() {
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="*" element={<Navigate to="/login" replace />} />
+
+          <Route path="/" element={<Layout />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="history" element={<QueryHistory />} />
+            <Route path="databases" element={<ConnectedDatabases />} />
+            <Route path="connect-database" element={<ConnectDatabase />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
+
         </Routes>
       </div>
     </Router>
